@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect } from "react";
 import { auth } from "./firebase";
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Driver from "./components/Driver";
@@ -32,16 +32,7 @@ const App = () => {
         <header className="bg-white shadow-md">
           <div className="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
             <h1 className="text-3xl font-bold text-gray-800">F1 App</h1>
-            {/* Conditionally render Logout or Login button */}
-            {user ? (
-              <Logout />
-            ) : (
-              <Link to="/login">
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:shadow-md">
-                  Login
-                </button>
-              </Link>
-            )}
+            {user && <Logout />}
           </div>
         </header>
 
