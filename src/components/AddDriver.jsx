@@ -1,27 +1,45 @@
 // src/components/AddDriver.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const AddDriver = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [team, setTeam] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [totalPolePositions, setTotalPolePositions] = useState("");
+  const [totalRaceWins, setTotalRaceWins] = useState("");
+  const [totalPointsScored, setTotalPointsScored] = useState("");
+  const [totalWorldTitles, setTotalWorldTitles] = useState("");
+  const [totalFastestLaps, setTotalFastestLaps] = useState("");
+  const [teams, setTeams] = useState([]); // State to store teams
+  const navigate = useNavigate();
+
+  // Fetch teams from Firestore
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const querySnapshot = await getDocs(collection(db, "teams"));
+      const teamData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setTeams(teamData);
+    };
+    fetchTeams();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Add the new driver to Firestore
       await addDoc(collection(db, "drivers"), {
         name,
         age: parseInt(age),
         team,
+        totalPolePositions: parseInt(totalPolePositions),
+        totalRaceWins: parseInt(totalRaceWins),
+        totalPointsScored: parseInt(totalPointsScored),
+        totalWorldTitles: parseInt(totalWorldTitles),
+        totalFastestLaps: parseInt(totalFastestLaps),
       });
       alert("Driver added successfully!");
-
-      // Redirect to the Driver page after adding
       navigate("/drivers");
     } catch (error) {
       alert(error.message);
@@ -63,12 +81,82 @@ const AddDriver = () => {
             <label htmlFor="team" className="block text-sm font-medium text-gray-700">
               Team
             </label>
-            <input
-              type="text"
+            <select
               id="team"
-              placeholder="Enter driver's team"
               value={team}
               onChange={(e) => setTeam(e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="">Select a team</option>
+              {teams.map((team) => (
+                <option key={team.id} value={team.name}>
+                  {team.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="totalPolePositions" className="block text-sm font-medium text-gray-700">
+              Total Pole Positions
+            </label>
+            <input
+              type="number"
+              id="totalPolePositions"
+              placeholder="Enter total pole positions"
+              value={totalPolePositions}
+              onChange={(e) => setTotalPolePositions(e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="totalRaceWins" className="block text-sm font-medium text-gray-700">
+              Total Race Wins
+            </label>
+            <input
+              type="number"
+              id="totalRaceWins"
+              placeholder="Enter total race wins"
+              value={totalRaceWins}
+              onChange={(e) => setTotalRaceWins(e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="totalPointsScored" className="block text-sm font-medium text-gray-700">
+              Total Points Scored
+            </label>
+            <input
+              type="number"
+              id="totalPointsScored"
+              placeholder="Enter total points scored"
+              value={totalPointsScored}
+              onChange={(e) => setTotalPointsScored(e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="totalWorldTitles" className="block text-sm font-medium text-gray-700">
+              Total World Titles
+            </label>
+            <input
+              type="number"
+              id="totalWorldTitles"
+              placeholder="Enter total world titles"
+              value={totalWorldTitles}
+              onChange={(e) => setTotalWorldTitles(e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="totalFastestLaps" className="block text-sm font-medium text-gray-700">
+              Total Fastest Laps
+            </label>
+            <input
+              type="number"
+              id="totalFastestLaps"
+              placeholder="Enter total fastest laps"
+              value={totalFastestLaps}
+              onChange={(e) => setTotalFastestLaps(e.target.value)}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
