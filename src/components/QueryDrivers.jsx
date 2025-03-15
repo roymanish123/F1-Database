@@ -1,4 +1,3 @@
-// src/components/QueryDrivers.jsx
 import React, { useState } from "react";
 import { db } from "../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -32,8 +31,10 @@ const QueryDrivers = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">Query Drivers</h2>
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800 animate-fade-in">
+          Query Drivers
+        </h2>
+        <div className="bg-white p-6 rounded-lg shadow-md animate-slide-in-up">
           <div className="space-y-4">
             {/* Attribute Selection */}
             <div>
@@ -44,7 +45,7 @@ const QueryDrivers = () => {
                 id="attribute"
                 value={attribute}
                 onChange={(e) => setAttribute(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:shadow-md"
               >
                 <option value="age">Age</option>
                 <option value="totalPolePositions">Total Pole Positions</option>
@@ -64,7 +65,7 @@ const QueryDrivers = () => {
                 id="operator"
                 value={operator}
                 onChange={(e) => setOperator(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:shadow-md"
               >
                 <option value="==">Equal</option>
                 <option value="<">Less Than</option>
@@ -83,14 +84,14 @@ const QueryDrivers = () => {
                 placeholder="Enter value"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:shadow-md"
               />
             </div>
 
             {/* Query Button */}
             <button
               onClick={handleQuery}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
             >
               Query
             </button>
@@ -98,11 +99,16 @@ const QueryDrivers = () => {
 
           {/* Display Results */}
           <div className="mt-6">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">Results</h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-800 animate-fade-in">
+              Results
+            </h3>
             {results.length > 0 ? (
               <ul className="space-y-4">
                 {results.map((driver, index) => (
-                  <li key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                  <li
+                    key={index}
+                    className="bg-gray-50 p-4 rounded-lg shadow-sm transition-all duration-200 transform hover:scale-102 hover:shadow-md animate-fade-in-up"
+                  >
                     <strong className="text-lg text-gray-800">{driver.name}</strong>
                     <p className="text-sm text-gray-600">
                       Age: {driver.age}, Team: {driver.team}, Pole Positions: {driver.totalPolePositions}, Race Wins: {driver.totalRaceWins}, Points: {driver.totalPointsScored}, World Titles: {driver.totalWorldTitles}, Fastest Laps: {driver.totalFastestLaps}
@@ -111,7 +117,7 @@ const QueryDrivers = () => {
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-600">No drivers match the query.</p>
+              <p className="text-gray-600 animate-fade-in">No drivers match the query.</p>
             )}
           </div>
         </div>
