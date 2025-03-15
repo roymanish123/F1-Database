@@ -59,7 +59,7 @@ const EditDriver = () => {
         totalFastestLaps: parseInt(totalFastestLaps),
       });
       alert("Driver updated successfully!");
-      navigate("/drivers");
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }

@@ -40,7 +40,7 @@ const AddDriver = () => {
         totalFastestLaps: parseInt(totalFastestLaps),
       });
       alert("Driver added successfully!");
-      navigate("/drivers");
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }

@@ -1,4 +1,3 @@
-// src/components/Driver.jsx
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
@@ -74,6 +73,18 @@ const Driver = () => {
           <Link to="/query-teams">
             <button className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-300 transform hover:scale-105">
               Query Teams
+            </button>
+          </Link>
+          {/* Compare Drivers Button */}
+          <Link to="/compare-drivers">
+            <button className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 transform hover:scale-105">
+              Compare Drivers
+            </button>
+          </Link>
+          {/* Compare Teams Button */}
+          <Link to="/compare-teams">
+            <button className="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 transition duration-300 transform hover:scale-105">
+              Compare Teams
             </button>
           </Link>
         </div>
